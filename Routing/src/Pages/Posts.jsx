@@ -1,5 +1,4 @@
-import { useLoaderData } from "react-router";
-import { Link } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 
 export function Posts() {
   const posts = useLoaderData();
@@ -15,7 +14,7 @@ export function Posts() {
               <div className='card-preview-text'>{post.body}</div>
             </div>
             <div className='card-footer' key={post.id}>
-              <Link to='Post' className='btn'>
+              <Link to={`/Posts/${post.id}`} className='btn'>
                 View
               </Link>
             </div>

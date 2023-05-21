@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
               return fetch("http://127.0.0.1:3000/posts", { signal });
             }
           },
-          { path: "Post", element: <Post /> }
+          { path: ":id", element: <Post /> } // Dynamic parameter :id to represent post ID
         ]
       },
       { path: "/Users", element: <Users /> },
