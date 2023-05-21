@@ -14,11 +14,11 @@ export function Posts() {
             <div className='card-body'>
               <div className='card-preview-text'>{post.body}</div>
             </div>
-            {/* <div className='card-footer' key={post.id}>
-              <Link to='/Post' className='btn'>
+            <div className='card-footer' key={post.id}>
+              <Link to='Post' className='btn'>
                 View
               </Link>
-            </div> */}
+            </div>
           </div>
         ))}
       </div>

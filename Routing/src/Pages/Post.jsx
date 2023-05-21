@@ -1,3 +1,3 @@
-export function Post({ name }) {
-  return <h1>Post = {name}</h1>;
+export function Post() {
+  return <h1>Post</h1>;
 }
