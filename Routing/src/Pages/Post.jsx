@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useLoaderData } from "react-router-dom";
 
 export function Post() {
-  const { id } = useParams(); // Access the ID from the URL path
-  const [post, setPost] = useState(null);
-
-  useEffect(() => {
-    fetch(`http://127.0.0.1:3000/posts/${id}`)
-      .then(response => response.json())
-      .then(data => setPost(data));
-  }, [id]);
+  const post = useLoaderData();
 
   if (!post) {
-    return <div>Loading...</div>; // Display a loading state while fetching the post data
+    return <div>Loading...</div>;
   }
 
   return (
