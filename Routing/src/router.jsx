@@ -61,7 +61,18 @@ export const router = createBrowserRouter([
           }
         ]
       },
-      { path: "/Todos", element: <Todos /> }
+      {
+        path: "/Todos",
+        children: [
+          {
+            index: true,
+            element: <Todos />,
+            loader: ({ request: { signal } }) => {
+              return fetch("http://127.0.0.1:3000/todos", { signal });
+            }
+          }
+        ]
+      }
     ]
   }
 ]);
