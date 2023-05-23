@@ -31,10 +31,20 @@ export const router = createBrowserRouter([
           {
             path: ":id",
             element: <Post />,
-            loader: ({ params, request: { signal } }) => {
-              return fetch(`http://127.0.0.1:3000/posts/${params.id}`, {
-                signal
-              });
+            loader: async ({ params, request: { signal } }) => {
+              const postResponse = await fetch(
+                `http://127.0.0.1:3000/posts/${params.id}`,
+                { signal }
+              );
+              const post = await postResponse.json();
+
+              const commentsResponse = await fetch(
+                `http://127.0.0.1:3000/posts/${params.id}/comments`,
+                { signal }
+              );
+              const comments = await commentsResponse.json();
+
+              return { ...post, comments };
             }
           }
         ]
