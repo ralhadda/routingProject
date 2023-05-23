@@ -38,13 +38,19 @@ export const router = createBrowserRouter([
               );
               const post = await postResponse.json();
 
+              const userResponse = await fetch(
+                `http://127.0.0.1:3000/users/${post.userId}`,
+                { signal }
+              );
+              const user = await userResponse.json();
+
               const commentsResponse = await fetch(
                 `http://127.0.0.1:3000/posts/${params.id}/comments`,
                 { signal }
               );
               const comments = await commentsResponse.json();
 
-              return { ...post, comments };
+              return { ...user, ...post, comments };
             }
           }
         ]

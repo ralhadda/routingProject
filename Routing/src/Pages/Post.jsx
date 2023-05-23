@@ -2,12 +2,12 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 
 export function Post() {
-  const { title, body, comments } = useLoaderData();
+  const { name, title, body, comments } = useLoaderData();
 
   return (
     <div className='container'>
       <h1 className='page-title'>{title}</h1>
-      <span className='page-subtitle'>By: {}</span>
+      <span className='page-subtitle'>By: {name}</span>
       <div>{body}</div>
       <h3 className='mt-4 mb-2'>Comments</h3>
       <div className='card-stack'>
