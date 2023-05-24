@@ -1,13 +1,18 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 
 export function Post() {
-  const { name, title, body, comments } = useLoaderData();
+  const { userId, name, title, body, comments } = useLoaderData();
 
   return (
     <div className='container'>
       <h1 className='page-title'>{title}</h1>
-      <span className='page-subtitle'>By: {name}</span>
+      <span className='page-subtitle'>
+        By:{" "}
+        <Link to={`/Users/${userId}`} className='link-style'>
+          {name}
+        </Link>
+      </span>
       <div>{body}</div>
       <h3 className='mt-4 mb-2'>Comments</h3>
       <div className='card-stack'>
