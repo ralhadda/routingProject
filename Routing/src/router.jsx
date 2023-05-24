@@ -69,10 +69,22 @@ export const router = createBrowserRouter([
           {
             path: ":id",
             element: <User />,
-            loader: ({ params, request: { signal } }) => {
-              return fetch(`http://127.0.0.1:3000/users/${params.id}`, {
-                signal
-              });
+            loader: async ({ params, request: { signal } }) => {
+              const userResponse = await fetch(
+                `http://127.0.0.1:3000/users/${params.id}`,
+                { signal }
+              );
+
+              const {
+                id,
+                name,
+                email,
+                address,
+                company,
+                website
+              } = await userResponse.json();
+
+              return { id, name, email, address, company, website };
             }
           }
         ]
