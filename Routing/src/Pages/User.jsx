@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 
 export function User() {
   const { id, name, email, address, company, website } = useLoaderData();
@@ -49,9 +49,9 @@ export function User() {
               <div className='card-preview-text'>{post.body}</div>
             </div>
             <div className='card-footer'>
-              <a className='btn' href='posts.html'>
+              <Link to={`/Posts/${post.id}`} className='btn'>
                 View
-              </a>
+              </Link>
             </div>
           </div>
         ))}
