@@ -8,21 +8,20 @@ export function User() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3000/posts?userId=${id}`)
-      .then(response => response.json())
-      .then(data => setPosts(data))
+    Promise.all([
+      fetch(`http://127.0.0.1:3000/posts?userId=${id}`),
+      fetch(`http://127.0.0.1:3000/todos?userId=${id}`)
+    ])
+      .then(([postsResponse, todosResponse]) =>
+        Promise.all([postsResponse.json(), todosResponse.json()])
+      )
+      .then(([postsData, todosData]) => {
+        setPosts(postsData);
+        setTodos(todosData);
+      })
       .catch(error => {
-        console.error("Error fetching posts:", error);
+        console.error("Error fetching data:", error);
         setPosts([]);
-      });
-  }, [id]);
-
-  useEffect(() => {
-    fetch(`http://127.0.0.1:3000/todos?userId=${id}`)
-      .then(response => response.json())
-      .then(data => setTodos(data))
-      .catch(error => {
-        console.error("Error fetching posts:", error);
         setTodos([]);
       });
   }, [id]);
