@@ -9,8 +9,8 @@ import { User } from "./Pages/User";
 import { Users } from "./Pages/Users";
 import { Todos } from "./Pages/Todos";
 import { Navbar } from "./Navbar";
-import { fetchPosts } from "./api/posts";
-import { fetchUsers } from "./api/users";
+import { fetchPosts, fetchPostWithUserAndComments } from "./api/posts";
+import { fetchUsers, fetchUser } from "./api/users";
 import { fetchTodos } from "./api/todos";
 
 export const router = createBrowserRouter([
@@ -34,27 +34,7 @@ export const router = createBrowserRouter([
           {
             path: ":id",
             element: <Post />,
-            loader: async ({ params, request: { signal } }) => {
-              const postResponse = await fetch(
-                `http://127.0.0.1:3000/posts/${params.id}`,
-                { signal }
-              );
-              const post = await postResponse.json();
-
-              const userResponse = await fetch(
-                `http://127.0.0.1:3000/users/${post.userId}`,
-                { signal }
-              );
-              const user = await userResponse.json();
-
-              const commentsResponse = await fetch(
-                `http://127.0.0.1:3000/posts/${params.id}/comments`,
-                { signal }
-              );
-              const comments = await commentsResponse.json();
-
-              return { ...user, ...post, comments };
-            }
+            loader: fetchPostWithUserAndComments
           }
         ]
       },
@@ -70,11 +50,7 @@ export const router = createBrowserRouter([
           {
             path: ":id",
             element: <User />,
-            loader: ({ params, request: { signal } }) => {
-              return fetch(`http://127.0.0.1:3000/users/${params.id}`, {
-                signal
-              });
-            }
+            loader: fetchUser
           }
         ]
       },
