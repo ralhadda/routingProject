@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData, Link } from "react-router-dom";
 
 export function Post() {
-  const { userId, name, title, body, comments } = useLoaderData();
+  const { userId, title, body } = useLoaderData();
+  const [user, setUser] = useState([]);
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    Promise.all([
+      fetch(`http://127.0.0.1:3000/users/${userId}`),
+      fetch(`http://127.0.0.1:3000/posts/${userId}/comments`)
+    ])
+      .then(([userResponse, commentsResponse]) =>
+        Promise.all([userResponse.json(), commentsResponse.json()])
+      )
+      .then(([userData, commentsData]) => {
+        setUser(userData);
+        setComments(commentsData);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+        setPosts([]);
+        setTodos([]);
+      });
+  }, [userId]);
 
   return (
     <div className='container'>
@@ -10,7 +31,7 @@ export function Post() {
       <span className='page-subtitle'>
         By:{" "}
         <Link to={`/Users/${userId}`} className='link-style'>
-          {name}
+          {user.name}
         </Link>
       </span>
       <div>{body}</div>

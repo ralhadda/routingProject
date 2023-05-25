@@ -9,7 +9,7 @@ import { User } from "./Pages/User";
 import { Users } from "./Pages/Users";
 import { Todos } from "./Pages/Todos";
 import { Navbar } from "./Navbar";
-import { fetchPosts, fetchPostWithUserAndComments } from "./api/posts";
+import { fetchPosts, fetchPost } from "./api/posts";
 import { fetchUsers, fetchUser } from "./api/users";
 import { fetchTodos } from "./api/todos";
 
@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
           {
             path: ":id",
             element: <Post />,
-            loader: fetchPostWithUserAndComments
+            loader: fetchPost
           }
         ]
       },
