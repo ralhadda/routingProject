@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, Link } from "react-router-dom";
+import { PostCard } from "../components/PostCard";
+import { TodoCard } from "../components/TodoCard";
 
 export function User() {
   const { id, name, email, address, company, website } = useLoaderData();
@@ -42,26 +44,14 @@ export function User() {
       <h3 className='mt-4 mb-2'>Posts</h3>
       <div className='card-grid'>
         {posts.map(post => (
-          <div className='card' key={post.id}>
-            <div className='card-header'>{post.title}</div>
-            <div className='card-body'>
-              <div className='card-preview-text'>{post.body}</div>
-            </div>
-            <div className='card-footer'>
-              <Link to={`/Posts/${post.id}`} className='btn'>
-                View
-              </Link>
-            </div>
-          </div>
+          <PostCard key={post.id} post={post} />
         ))}
       </div>
 
       <h3 className='mt-4 mb-2'>Todos</h3>
       <ul>
         {todos.map(todo => (
-          <li className={todo.completed ? "strike-through" : ""} key={todo.id}>
-            {todo.title}
-          </li>
+          <TodoCard key={todo.id} todo={todo} />
         ))}
       </ul>
     </div>
