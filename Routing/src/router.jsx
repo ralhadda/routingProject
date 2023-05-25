@@ -1,7 +1,8 @@
 import {
   createBrowserRouter,
   Outlet,
-  ScrollRestoration
+  ScrollRestoration,
+  useNavigation
 } from "react-router-dom";
 import { Posts } from "./Pages/Posts";
 import { Post } from "./Pages/Post";
@@ -69,11 +70,17 @@ export const router = createBrowserRouter([
 ]);
 
 function NavLayout() {
+  const { state } = useNavigation();
+  const isLoading = state === "loading";
+
   return (
     <>
       <Navbar />
       <ScrollRestoration />
-      <Outlet />
+      {isLoading && <div className='loading-spinner' />}
+      <div className={`container ${isLoading ? "loading" : ""}`}>
+        <Outlet />
+      </div>
     </>
   );
 }
