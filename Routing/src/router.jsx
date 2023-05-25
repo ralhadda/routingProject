@@ -1,10 +1,17 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  ScrollRestoration
+} from "react-router-dom";
 import { Posts } from "./Pages/Posts";
 import { Post } from "./Pages/Post";
 import { User } from "./Pages/User";
 import { Users } from "./Pages/Users";
 import { Todos } from "./Pages/Todos";
 import { Navbar } from "./Navbar";
+import { fetchPosts } from "./api/posts";
+import { fetchUsers } from "./api/users";
+import { fetchTodos } from "./api/todos";
 
 export const router = createBrowserRouter([
   {
@@ -14,9 +21,7 @@ export const router = createBrowserRouter([
         path: "/",
         index: true,
         element: <Posts />,
-        loader: ({ request: { signal } }) => {
-          return fetch("http://127.0.0.1:3000/posts", { signal });
-        }
+        loader: fetchPosts
       },
       {
         path: "/Posts",
@@ -24,9 +29,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Posts />,
-            loader: ({ request: { signal } }) => {
-              return fetch("http://127.0.0.1:3000/posts", { signal });
-            }
+            loader: fetchPosts
           },
           {
             path: ":id",
@@ -61,30 +64,16 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Users />,
-            loader: ({ request: { signal } }) => {
-              return fetch("http://127.0.0.1:3000/users", { signal });
-            }
+            loader: fetchUsers
           },
           ,
           {
             path: ":id",
             element: <User />,
-            loader: async ({ params, request: { signal } }) => {
-              const userResponse = await fetch(
-                `http://127.0.0.1:3000/users/${params.id}`,
-                { signal }
-              );
-
-              const {
-                id,
-                name,
-                email,
-                address,
-                company,
-                website
-              } = await userResponse.json();
-
-              return { id, name, email, address, company, website };
+            loader: ({ params, request: { signal } }) => {
+              return fetch(`http://127.0.0.1:3000/users/${params.id}`, {
+                signal
+              });
             }
           }
         ]
@@ -95,9 +84,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Todos />,
-            loader: ({ request: { signal } }) => {
-              return fetch("http://127.0.0.1:3000/todos", { signal });
-            }
+            loader: fetchTodos
           }
         ]
       }
@@ -109,6 +96,7 @@ function NavLayout() {
   return (
     <>
       <Navbar />
+      <ScrollRestoration />
       <Outlet />
     </>
   );
