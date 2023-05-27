@@ -4,53 +4,31 @@ import { PostCard } from "../components/PostCard";
 import { TodoCard } from "../components/TodoCard";
 
 export function User() {
-  const { id, name, email, address, company, website } = useLoaderData();
-  const { street, suite, city, zipcode } = address;
-  const [posts, setPosts] = useState([]);
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    Promise.all([
-      fetch(`http://127.0.0.1:3000/posts?userId=${id}`),
-      fetch(`http://127.0.0.1:3000/todos?userId=${id}`)
-    ])
-      .then(([postsResponse, todosResponse]) =>
-        Promise.all([postsResponse.json(), todosResponse.json()])
-      )
-      .then(([postsData, todosData]) => {
-        setPosts(postsData);
-        setTodos(todosData);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        setPosts([]);
-        setTodos([]);
-      });
-  }, [id]);
-
+  const { user, post, todo } = useLoaderData();
+  const { street, suite, city, zipcode } = user.address;
   return (
     <div className='container'>
-      <h1 className='page-title'>{name}</h1>
-      <div className='page-subtitle'>{email}</div>
+      <h1 className='page-title'>{user.name}</h1>
+      <div className='page-subtitle'>{user.email}</div>
       <div>
-        <b>Company:</b> {company.name}
+        <b>Company:</b> {user.company.name}
       </div>
       <div>
-        <b>Website:</b> {website}
+        <b>Website:</b> {user.website}
       </div>
       <div>
         <b>Address:</b> {street}, {suite}, {city}, {zipcode}
       </div>
       <h3 className='mt-4 mb-2'>Posts</h3>
       <div className='card-grid'>
-        {posts.map(post => (
+        {post.map(post => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>
 
       <h3 className='mt-4 mb-2'>Todos</h3>
       <ul>
-        {todos.map(todo => (
+        {todo.map(todo => (
           <TodoCard key={todo.id} todo={todo} />
         ))}
       </ul>
