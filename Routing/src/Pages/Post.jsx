@@ -6,7 +6,14 @@ export function Post() {
 
   return (
     <div className='container'>
-      <h1 className='page-title'>{post.title}</h1>
+      <h1 className='page-title'>
+        {post.title}
+        <div className='title-btns'>
+          <Link to={`/posts/${post.id}/edit`} className='btn btn-outline'>
+            Edit
+          </Link>
+        </div>
+      </h1>
       <span className='page-subtitle'>
         By:{" "}
         <Link to={`/Users/${post.userId}`} className='link-style'>

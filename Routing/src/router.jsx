@@ -2,9 +2,12 @@ import {
   createBrowserRouter,
   Outlet,
   ScrollRestoration,
-  useNavigation
+  useNavigation,
+  redirect
 } from "react-router-dom";
 import { Posts } from "./Pages/Posts";
+import { New } from "./Pages/New";
+import { Edit } from "./Pages/Edit";
 import { Post } from "./Pages/Post";
 import { User } from "./Pages/User";
 import { Users } from "./Pages/Users";
@@ -13,6 +16,7 @@ import { Navbar } from "./Navbar";
 import { fetchPosts, fetchPostWithUserAndComments } from "./api/posts";
 import { fetchUsers, fetchUserWithPostAndTodo } from "./api/users";
 import { fetchTodos } from "./api/todos";
+import { newPage } from "./api/newPage";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +40,33 @@ export const router = createBrowserRouter([
             path: ":id",
             element: <Post />,
             loader: fetchPostWithUserAndComments
+          },
+          {
+            path: ":id/Edit",
+            element: <Edit />,
+            loader: fetchPostWithUserAndComments
+          },
+          {
+            path: "New",
+            element: <New />,
+            loader: newPage,
+            action: async ({ request }) => {
+              const formData = await request.formData();
+              const title = formData.get("title");
+              const body = formData.get("body");
+              const userId = formData.get("userId");
+
+              const post = await fetch("http://127.0.0.1:3000/posts", {
+                method: "POST",
+                signal: request.signal,
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, body, userId })
+              }).then(res => res.json());
+
+              return redirect(`/Posts/${post.id}`);
+            }
           }
         ]
       },
