@@ -1,20 +1,27 @@
 import React from "react";
-import { Form, useActionData } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 
 export function Edit() {
+  const { user, post, comments } = useLoaderData();
+
   return (
     <div className='container'>
-      <h1 className='page-title'>New Post</h1>
-      <Form method='post' action='/posts/new' className='form'>
+      <h1 className='page-title'>Edit Post</h1>
+      <Form method='post' action={`/posts/${post.id}/edit`} className='form'>
         <div className='form-row'>
           <div className={`form-group`}>
             <label htmlFor='title'>Title</label>
-            <input type='text' name='title' id='title' />
+            <input
+              type='text'
+              name='title'
+              id='title'
+              defaultValue={post.title}
+            />
             {/* {errorMessage ? <div className='error-message'>Required</div> : ""} */}
           </div>
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
-            <select name='userId' id='userId'>
+            <select name='userId' id='userId' defaultValue={user.id}>
               <option value='1'>Leanne Graham</option>
               <option value='2'>Ervin Howell</option>
               <option value='3'>Clementine Bauch</option>
@@ -31,7 +38,7 @@ export function Edit() {
         <div className='form-row'>
           <div className='form-group'>
             <label htmlFor='body'>Body</label>
-            <textarea name='body' id='body'></textarea>
+            <textarea name='body' id='body' defaultValue={post.body}></textarea>
           </div>
         </div>
         <div className='form-row form-btn-row'>

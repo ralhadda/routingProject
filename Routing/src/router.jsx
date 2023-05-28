@@ -44,7 +44,25 @@ export const router = createBrowserRouter([
           {
             path: ":id/Edit",
             element: <Edit />,
-            loader: fetchPostWithUserAndComments
+            loader: fetchPostWithUserAndComments,
+            action: async ({ request, params }) => {
+              const formData = await request.formData();
+              const title = formData.get("title");
+              const body = formData.get("body");
+              const userId = formData.get("userId");
+
+              const postId = params.id;
+              await fetch(`http://127.0.0.1:3000/posts/${postId}`, {
+                method: "PUT",
+                signal: request.signal,
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, body, userId })
+              });
+
+              return redirect(`/Posts/${postId}`);
+            }
           },
           {
             path: "New",
