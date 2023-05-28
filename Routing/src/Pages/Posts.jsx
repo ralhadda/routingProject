@@ -1,4 +1,4 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Link, Form } from "react-router-dom";
 
 export function Posts() {
   const posts = useLoaderData();
@@ -13,7 +13,7 @@ export function Posts() {
           </Link>
         </div>
       </h1>
-      <form method='get' action='/posts' className='form mb-4'>
+      <Form method='get' action='/posts' className='form mb-4'>
         <div className='form-row'>
           <div className='form-group'>
             <label htmlFor='query'>Query</label>
@@ -37,7 +37,7 @@ export function Posts() {
           </div>
           <button className='btn'>Filter</button>
         </div>
-      </form>
+      </Form>
       <div className='card-grid'>
         {posts.map(post => (
           <div className='card' key={post.id}>

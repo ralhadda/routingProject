@@ -1,7 +1,21 @@
 import { fetchData } from "./base";
 
-export async function fetchPosts({ request: { signal } }) {
-  return fetchData("http://127.0.0.1:3000/posts", signal);
+export async function fetchPosts({ request: { signal, url } }) {
+  const searchParams = new URL(url).searchParams;
+  const query = searchParams.get("query");
+  const userId = searchParams.get("userId");
+
+  let apiUrl = `http://127.0.0.1:3000/posts`;
+
+  if (query) {
+    apiUrl += `?q=${query}`;
+  }
+
+  if (userId && userId !== "") {
+    apiUrl += `${query ? "&" : "?"}userId=${userId}`;
+  }
+
+  return fetchData(apiUrl, signal);
 }
 
 export async function fetchPostWithUserAndComments({ params, request }) {
