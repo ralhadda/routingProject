@@ -3,6 +3,7 @@ import { Form, useActionData, useNavigation } from "react-router-dom";
 
 export function New() {
   const errorMessage = useActionData();
+  console.log(errorMessage);
   const { state } = useNavigation();
 
   return (
@@ -10,10 +11,18 @@ export function New() {
       <h1 className='page-title'>New Post</h1>
       <Form method='post' action='/posts/new' className='form'>
         <div className='form-row'>
-          <div className={`form-group ${errorMessage ? "error" : ""}`}>
+          <div
+            className={`form-group ${
+              errorMessage === "Title is Required" ? "error" : ""
+            }`}
+          >
             <label htmlFor='title'>Title</label>
             <input type='text' name='title' id='title' />
-            {errorMessage ? <div className='error-message'>Required</div> : ""}
+            {errorMessage === "Title is Required" ? (
+              <div className='error-message'>Title is Required</div>
+            ) : (
+              ""
+            )}
           </div>
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
@@ -32,9 +41,18 @@ export function New() {
           </div>
         </div>
         <div className='form-row'>
-          <div className='form-group'>
+          <div
+            className={`form-group ${
+              errorMessage === "Body is Required" ? "error" : ""
+            }`}
+          >
             <label htmlFor='body'>Body</label>
             <textarea name='body' id='body'></textarea>
+            {errorMessage === "Body is Required" ? (
+              <div className='error-message'>Body is Required</div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className='form-row form-btn-row'>

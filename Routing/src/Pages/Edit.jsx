@@ -1,8 +1,14 @@
 import React from "react";
-import { Form, useLoaderData, useNavigation } from "react-router-dom";
+import {
+  Form,
+  useLoaderData,
+  useNavigation,
+  useActionData
+} from "react-router-dom";
 
 export function Edit() {
-  const { user, post, comments } = useLoaderData();
+  const { user, post } = useLoaderData();
+  const errorMessage = useActionData();
   const { state } = useNavigation();
 
   return (
@@ -10,7 +16,11 @@ export function Edit() {
       <h1 className='page-title'>Edit Post</h1>
       <Form method='post' action={`/posts/${post.id}/edit`} className='form'>
         <div className='form-row'>
-          <div className={`form-group`}>
+          <div
+            className={`form-group ${
+              errorMessage === "Title is Required" ? "error" : ""
+            }`}
+          >
             <label htmlFor='title'>Title</label>
             <input
               type='text'
@@ -18,7 +28,11 @@ export function Edit() {
               id='title'
               defaultValue={post.title}
             />
-            {/* {errorMessage ? <div className='error-message'>Required</div> : ""} */}
+            {errorMessage === "Title is Required" ? (
+              <div className='error-message'>Title is Required</div>
+            ) : (
+              ""
+            )}
           </div>
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
@@ -37,9 +51,18 @@ export function Edit() {
           </div>
         </div>
         <div className='form-row'>
-          <div className='form-group'>
+          <div
+            className={`form-group ${
+              errorMessage === "Body is Required" ? "error" : ""
+            }`}
+          >
             <label htmlFor='body'>Body</label>
             <textarea name='body' id='body' defaultValue={post.body}></textarea>
+            {errorMessage === "Body is Required" ? (
+              <div className='error-message'>Body is Required</div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className='form-row form-btn-row'>
