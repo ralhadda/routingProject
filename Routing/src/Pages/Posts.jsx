@@ -1,16 +1,22 @@
 import { useLoaderData, Link, Form } from "react-router-dom";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
 export function Posts() {
   const {
-    searchParams: { query },
+    searchParams: { query, userId },
     posts
   } = useLoaderData();
   const queryRef = useRef("");
+  const userIdRef = useRef("");
 
   useEffect(() => {
     queryRef.current.value = query;
-  }, [query]);
+    if (userId) {
+      userIdRef.current.value = userId;
+    } else {
+      userIdRef.current.value = "";
+    }
+  }, [query, userId]);
 
   return (
     <div className='container'>
@@ -30,7 +36,7 @@ export function Posts() {
           </div>
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
-            <select type='search' name='userId' id='userId'>
+            <select type='search' name='userId' id='userId' ref={userIdRef}>
               <option value=''>Any</option>
               <option value='1'>Leanne Graham</option>
               <option value='2'>Ervin Howell</option>

@@ -17,7 +17,7 @@ export async function fetchPosts({ request: { signal, url } }) {
 
   const posts = await fetchData(apiUrl, signal);
   return {
-    searchParams: { query },
+    searchParams: { query, userId },
     posts: posts
   };
 }
