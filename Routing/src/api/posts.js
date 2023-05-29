@@ -15,7 +15,11 @@ export async function fetchPosts({ request: { signal, url } }) {
     apiUrl += `${query ? "&" : "?"}userId=${userId}`;
   }
 
-  return fetchData(apiUrl, signal);
+  const posts = await fetchData(apiUrl, signal);
+  return {
+    searchParams: { query },
+    posts: posts
+  };
 }
 
 export async function fetchPostWithUserAndComments({ params, request }) {

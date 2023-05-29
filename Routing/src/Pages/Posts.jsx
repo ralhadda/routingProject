@@ -1,7 +1,16 @@
 import { useLoaderData, Link, Form } from "react-router-dom";
+import { useRef, useEffect, useState } from "react";
 
 export function Posts() {
-  const posts = useLoaderData();
+  const {
+    searchParams: { query },
+    posts
+  } = useLoaderData();
+  const queryRef = useState("");
+
+  useEffect(() => {
+    queryRef.current.value = query;
+  }, [query]);
 
   return (
     <div className='container'>
@@ -17,7 +26,7 @@ export function Posts() {
         <div className='form-row'>
           <div className='form-group'>
             <label htmlFor='query'>Query</label>
-            <input type='search' name='query' id='query' />
+            <input type='search' name='query' id='query' ref={queryRef} />
           </div>
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
