@@ -1,8 +1,9 @@
 import React from "react";
-import { Form, useActionData } from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 
 export function New() {
   const errorMessage = useActionData();
+  const { state } = useNavigation();
 
   return (
     <div className='container'>
@@ -40,7 +41,9 @@ export function New() {
           <a className='btn btn-outline' href='/posts'>
             Cancel
           </a>
-          <button className='btn'>Save</button>
+          <button className='btn' disabled={state === "loading" ? true : false}>
+            Save
+          </button>
         </div>
       </Form>
     </div>

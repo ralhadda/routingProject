@@ -1,8 +1,9 @@
 import React from "react";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, useNavigation } from "react-router-dom";
 
 export function Edit() {
   const { user, post, comments } = useLoaderData();
+  const { state } = useNavigation();
 
   return (
     <div className='container'>
@@ -45,7 +46,9 @@ export function Edit() {
           <a className='btn btn-outline' href='/posts'>
             Cancel
           </a>
-          <button className='btn'>Save</button>
+          <button className='btn' disabled={state === "loading" ? true : false}>
+            Save
+          </button>
         </div>
       </Form>
     </div>
