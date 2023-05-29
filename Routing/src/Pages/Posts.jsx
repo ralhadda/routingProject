@@ -6,7 +6,7 @@ export function Posts() {
     searchParams: { query },
     posts
   } = useLoaderData();
-  const queryRef = useState("");
+  const queryRef = useRef("");
 
   useEffect(() => {
     queryRef.current.value = query;
