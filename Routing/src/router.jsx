@@ -2,21 +2,22 @@ import {
   createBrowserRouter,
   Outlet,
   ScrollRestoration,
-  useNavigation,
-  redirect
+  useNavigation
 } from "react-router-dom";
 import { Posts } from "./Pages/Posts";
-import { New } from "./Pages/New";
-import { Edit } from "./Pages/Edit";
+import { NewPost } from "./Pages/NewPost";
+import { Edit } from "./Pages/EditPost";
 import { Post } from "./Pages/Post";
 import { User } from "./Pages/User";
 import { Users } from "./Pages/Users";
 import { Todos } from "./Pages/Todos";
 import { Navbar } from "./Navbar";
-import { fetchPosts, fetchPostWithUserAndComments } from "./api/posts";
-import { fetchUsers, fetchUserWithPostAndTodo } from "./api/users";
-import { fetchTodos } from "./api/todos";
-import { newPage } from "./api/newPage";
+import { fetchPosts, fetchPostWithUserAndComments } from "./apiLoader/posts";
+import { fetchUsers, fetchUserWithPostAndTodo } from "./apiLoader/users";
+import { fetchTodos } from "./apiLoader/todos";
+import { newPage } from "./apiLoader/posts";
+import { editPost } from "./apiAction/editPost";
+import { newPost } from "./apiAction/newPost";
 
 export const router = createBrowserRouter([
   {
@@ -45,70 +46,13 @@ export const router = createBrowserRouter([
             path: ":id/Edit",
             element: <Edit />,
             loader: fetchPostWithUserAndComments,
-            action: async ({ request, params }) => {
-              const formData = await request.formData();
-              const title = formData.get("title");
-              const body = formData.get("body");
-              const userId = formData.get("userId");
-
-              if (!title) {
-                return "Title is Required";
-              }
-
-              if (!body) {
-                return "Body is Required";
-              }
-
-              if (!userId) {
-                return "Author is Required";
-              }
-
-              const postId = params.id;
-              await fetch(`http://127.0.0.1:3000/posts/${postId}`, {
-                method: "PUT",
-                signal: request.signal,
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ title, body, userId })
-              });
-
-              return redirect(`/Posts/${postId}`);
-            }
+            action: editPost
           },
           {
             path: "New",
-            element: <New />,
+            element: <NewPost />,
             loader: newPage,
-            action: async ({ request }) => {
-              const formData = await request.formData();
-              const title = formData.get("title");
-              const body = formData.get("body");
-              const userId = formData.get("userId");
-
-              if (!title) {
-                return "Title is Required";
-              }
-
-              if (!body) {
-                return "Body is Required";
-              }
-
-              if (!userId) {
-                return "Author is Required";
-              }
-
-              const post = await fetch("http://127.0.0.1:3000/posts", {
-                method: "POST",
-                signal: request.signal,
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ title, body, userId })
-              }).then(res => res.json());
-
-              return redirect(`/Posts/${post.id}`);
-            }
+            action: newPost
           }
         ]
       },

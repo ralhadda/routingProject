@@ -36,3 +36,7 @@ export async function fetchPostWithUserAndComments({ params, request }) {
 
   return { user, post, comments };
 }
+
+export async function newPage({ request: { signal } }) {
+  return fetchData("http://127.0.0.1:3000/posts", signal);
+}
