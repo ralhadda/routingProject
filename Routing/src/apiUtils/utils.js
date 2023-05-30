@@ -1,5 +1,6 @@
 export function errorFormValidation(title, body, userId) {
-  error = {};
+  const error = {};
+
   if (!title) {
     error.title = "Title is Required";
   }

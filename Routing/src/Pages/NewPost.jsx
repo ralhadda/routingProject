@@ -1,40 +1,31 @@
 import React from "react";
-import {
-  Form,
-  useLoaderData,
-  useNavigation,
-  useActionData
-} from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 
-export function EditPost() {
-  const { user, post } = useLoaderData();
+export function NewPost() {
   const errorMessage = useActionData();
-
-  console.log(errorMessage);
   const { state } = useNavigation();
 
   return (
     <div className='container'>
-      <h1 className='page-title'>Edit Post</h1>
-      <Form method='post' action={`/posts/${post.id}/edit`} className='form'>
+      <h1 className='page-title'>New Post</h1>
+      <Form method='post' action='/posts/new' className='form'>
         <div className='form-row'>
-          <div className={`form-group ${errorMessage ? "error" : ""}`}>
+          <div
+            className={`form-group ${
+              errorMessage === "Title is Required" ? "error" : ""
+            }`}
+          >
             <label htmlFor='title'>Title</label>
-            <input
-              type='text'
-              name='title'
-              id='title'
-              defaultValue={post.title}
-            />
-            {errorMessage ? (
-              <div className='error-message'>{errorMessage}</div>
+            <input type='text' name='title' id='title' />
+            {errorMessage === "Title is Required" ? (
+              <div className='error-message'>Title is Required</div>
             ) : (
               ""
             )}
           </div>
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
-            <select name='userId' id='userId' defaultValue={user.id}>
+            <select name='userId' id='userId'>
               <option value='1'>Leanne Graham</option>
               <option value='2'>Ervin Howell</option>
               <option value='3'>Clementine Bauch</option>
@@ -49,11 +40,15 @@ export function EditPost() {
           </div>
         </div>
         <div className='form-row'>
-          <div className={`form-group ${errorMessage ? "error" : ""}`}>
+          <div
+            className={`form-group ${
+              errorMessage === "Body is Required" ? "error" : ""
+            }`}
+          >
             <label htmlFor='body'>Body</label>
-            <textarea name='body' id='body' defaultValue={post.body}></textarea>
-            {errorMessage ? (
-              <div className='error-message'>{errorMessage}</div>
+            <textarea name='body' id='body'></textarea>
+            {errorMessage === "Body is Required" ? (
+              <div className='error-message'>Body is Required</div>
             ) : (
               ""
             )}
