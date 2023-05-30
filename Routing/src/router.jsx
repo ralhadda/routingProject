@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { Posts } from "./Pages/Posts";
 import { NewPost } from "./Pages/NewPost";
-import { Edit } from "./Pages/EditPost";
+import { EditPost } from "./Pages/EditPost";
 import { Post } from "./Pages/Post";
 import { User } from "./Pages/User";
 import { Users } from "./Pages/Users";
@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ":id/Edit",
-            element: <Edit />,
+            element: <EditPost />,
             loader: fetchPostWithUserAndComments,
             action: editPost
           },
