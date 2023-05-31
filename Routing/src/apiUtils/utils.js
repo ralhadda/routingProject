@@ -1,4 +1,4 @@
-export const errorFormValidation = (title, body, userId) => {
+export const errorFormValidation = (title, body) => {
   const error = {};
 
   if (!title) {
@@ -7,10 +7,6 @@ export const errorFormValidation = (title, body, userId) => {
 
   if (!body) {
     error.body = "Body is Required";
-  }
-
-  if (!userId) {
-    error.userId = "Author is Required";
   }
 
   return error;

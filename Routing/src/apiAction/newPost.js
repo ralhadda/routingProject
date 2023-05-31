@@ -7,17 +7,8 @@ export const newPost = async ({ request }) => {
   const body = formData.get("body");
   const userId = formData.get("userId");
 
-  if (!title) {
-    return "Title is Required";
-  }
-
-  if (!body) {
-    return "Body is Required";
-  }
-
-  if (!userId) {
-    return "Author is Required";
-  }
+  const error = errorFormValidation(title, body);
+  if (Object.keys(error).length) return error;
 
   const post = await fetch("http://127.0.0.1:3000/posts", {
     method: "POST",

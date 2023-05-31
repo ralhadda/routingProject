@@ -1,4 +1,3 @@
-// newPost.jsx
 import React from "react";
 import { useActionData } from "react-router-dom";
 import { PostForm } from "../Components/PostForm";

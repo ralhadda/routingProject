@@ -8,15 +8,11 @@ export const PostForm = ({ title, body, userId, errorMessage }) => {
     <div className='container'>
       <Form method='post' action='/posts/new' className='form'>
         <div className='form-row'>
-          <div
-            className={`form-group ${
-              errorMessage === "Title is Required" ? "error" : ""
-            }`}
-          >
+          <div className={`form-group ${errorMessage?.title ? "error" : ""}`}>
             <label htmlFor='title'>Title</label>
             <input type='text' name='title' id='title' defaultValue={title} />
-            {errorMessage === "Title is Required" && (
-              <div className='error-message'>Title is Required</div>
+            {errorMessage?.title && (
+              <div className='error-message'>{errorMessage.title}</div>
             )}
           </div>
           <div className='form-group'>
@@ -36,15 +32,11 @@ export const PostForm = ({ title, body, userId, errorMessage }) => {
           </div>
         </div>
         <div className='form-row'>
-          <div
-            className={`form-group ${
-              errorMessage === "Body is Required" ? "error" : ""
-            }`}
-          >
+          <div className={`form-group ${errorMessage?.body ? "error" : ""}`}>
             <label htmlFor='body'>Body</label>
             <textarea name='body' id='body' defaultValue={body}></textarea>
-            {errorMessage === "Body is Required" && (
-              <div className='error-message'>Body is Required</div>
+            {errorMessage?.body && (
+              <div className='error-message'>{errorMessage.body}</div>
             )}
           </div>
         </div>
