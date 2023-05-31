@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../styles.css";
 
-export function Navbar() {
+export const Navbar = () => {
   return (
     <nav className='top-nav'>
       <div className='nav-text-large'>My App</div>
@@ -18,4 +18,4 @@ export function Navbar() {
       </ul>
     </nav>
   );
-}
+};

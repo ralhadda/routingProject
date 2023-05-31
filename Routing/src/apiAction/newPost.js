@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 import { errorFormValidation } from "../apiUtils/utils";
 
-export async function newPost({ request }) {
+export const newPost = async ({ request }) => {
   const formData = await request.formData();
   const title = formData.get("title");
   const body = formData.get("body");
@@ -29,4 +29,4 @@ export async function newPost({ request }) {
   }).then(res => res.json());
 
   return redirect(`/Posts/${post.id}`);
-}
+};

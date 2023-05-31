@@ -3,7 +3,7 @@ import { useLoaderData, Link } from "react-router-dom";
 import { PostCard } from "../components/PostCard";
 import { TodoCard } from "../components/TodoCard";
 
-export function User() {
+export const User = () => {
   const { user, post, todo } = useLoaderData();
   const { street, suite, city, zipcode } = user.address;
   return (
@@ -34,4 +34,4 @@ export function User() {
       </ul>
     </div>
   );
-}
+};

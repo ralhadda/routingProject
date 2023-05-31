@@ -1,7 +1,7 @@
 import React from "react";
-import { Form, useActionData, useNavigation } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
-export function PostForm({ title, body, userId, errorMessage }) {
+export const PostForm = ({ title, body, userId, errorMessage }) => {
   const { state } = useNavigation();
 
   return (
@@ -59,4 +59,4 @@ export function PostForm({ title, body, userId, errorMessage }) {
       </Form>
     </div>
   );
-}
+};

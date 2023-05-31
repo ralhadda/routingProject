@@ -1,4 +1,4 @@
-export function errorFormValidation(title, body, userId) {
+export const errorFormValidation = (title, body, userId) => {
   const error = {};
 
   if (!title) {
@@ -14,4 +14,4 @@ export function errorFormValidation(title, body, userId) {
   }
 
   return error;
-}
+};

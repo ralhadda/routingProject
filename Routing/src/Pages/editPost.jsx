@@ -2,7 +2,7 @@ import React from "react";
 import { useLoaderData, useActionData } from "react-router-dom";
 import { PostForm } from "../Components/PostForm";
 
-export function EditPost() {
+export const EditPost = () => {
   const { user, post } = useLoaderData();
   const errorMessage = useActionData();
 
@@ -17,4 +17,4 @@ export function EditPost() {
       />
     </div>
   );
-}
+};

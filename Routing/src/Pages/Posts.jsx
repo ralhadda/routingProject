@@ -1,7 +1,7 @@
 import { useLoaderData, Link, Form } from "react-router-dom";
 import { useRef, useEffect } from "react";
 
-export function Posts() {
+export const Posts = () => {
   const {
     searchParams: { query, userId },
     posts
@@ -70,4 +70,4 @@ export function Posts() {
       </div>
     </div>
   );
-}
+};

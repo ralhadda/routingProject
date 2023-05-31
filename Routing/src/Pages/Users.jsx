@@ -1,6 +1,6 @@
 import { useLoaderData, Link } from "react-router-dom";
 
-export function Users() {
+export const Users = () => {
   const users = useLoaderData();
 
   return (
@@ -25,4 +25,4 @@ export function Users() {
       </div>
     </div>
   );
-}
+};

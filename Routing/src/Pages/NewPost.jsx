@@ -3,7 +3,7 @@ import React from "react";
 import { useActionData } from "react-router-dom";
 import { PostForm } from "../Components/PostForm";
 
-export function NewPost() {
+export const NewPost = () => {
   const errorMessage = useActionData();
 
   return (
@@ -12,4 +12,4 @@ export function NewPost() {
       <PostForm title='' body='' userId='' errorMessage={errorMessage} />
     </div>
   );
-}
+};

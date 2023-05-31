@@ -1,6 +1,6 @@
 import { fetchData } from "./base";
 
-export async function fetchPosts({ request: { signal, url } }) {
+export const fetchPosts = async ({ request: { signal, url } }) => {
   const searchParams = new URL(url).searchParams;
   const query = searchParams.get("query");
   const userId = searchParams.get("userId");
@@ -20,9 +20,9 @@ export async function fetchPosts({ request: { signal, url } }) {
     searchParams: { query, userId },
     posts: posts
   };
-}
+};
 
-export async function fetchPostWithUserAndComments({ params, request }) {
+export const fetchPostWithUserAndComments = async ({ params, request }) => {
   const postId = params.id;
   const signal = request.signal;
 
@@ -35,8 +35,8 @@ export async function fetchPostWithUserAndComments({ params, request }) {
   ]);
 
   return { user, post, comments };
-}
+};
 
-export async function newPage({ request: { signal } }) {
+export const newPage = async ({ request: { signal } }) => {
   return fetchData("http://127.0.0.1:3000/posts", signal);
-}
+};

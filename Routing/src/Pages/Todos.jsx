@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 
-export function Todos() {
+export const Todos = () => {
   const todos = useLoaderData();
 
   return (
@@ -15,4 +15,4 @@ export function Todos() {
       </ul>
     </div>
   );
-}
+};

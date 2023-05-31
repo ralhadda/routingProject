@@ -1,7 +1,7 @@
 import React from "react";
 import { useLoaderData, Link } from "react-router-dom";
 
-export function Post() {
+export const Post = () => {
   const { user, post, comments } = useLoaderData();
 
   return (
@@ -34,4 +34,4 @@ export function Post() {
       </div>
     </div>
   );
-}
+};
