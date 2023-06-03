@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLoaderData, Link } from "react-router-dom";
+import React from "react";
+import { useLoaderData } from "react-router-dom";
 import { PostCard } from "../components/PostCard";
 import { TodoCard } from "../components/TodoCard";
 
