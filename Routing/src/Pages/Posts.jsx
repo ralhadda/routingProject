@@ -4,7 +4,8 @@ import { useRef, useEffect } from "react";
 export const Posts = () => {
   const {
     searchParams: { query, userId },
-    posts
+    posts,
+    users
   } = useLoaderData();
   const queryRef = useRef("");
   const userIdRef = useRef("");
@@ -37,17 +38,11 @@ export const Posts = () => {
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
             <select type='search' name='userId' id='userId' ref={userIdRef}>
-              <option value=''>Any</option>
-              <option value='1'>Leanne Graham</option>
-              <option value='2'>Ervin Howell</option>
-              <option value='3'>Clementine Bauch</option>
-              <option value='4'>Patricia Lebsack</option>
-              <option value='5'>Chelsey Dietrich</option>
-              <option value='6'>Mrs. Dennis Schulist</option>
-              <option value='7'>Kurtis Weissnat</option>
-              <option value='8'>Nicholas Runolfsdottir V</option>
-              <option value='9'>Glenna Reichert</option>
-              <option value='10'>Clementina DuBuque</option>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
             </select>
           </div>
           <button className='btn'>Filter</button>

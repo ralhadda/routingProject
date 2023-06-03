@@ -12,7 +12,10 @@ import { User } from "./Pages/User";
 import { Users } from "./Pages/Users";
 import { Todos } from "./Pages/Todos";
 import { Navbar } from "./Navbar";
-import { fetchPosts, fetchPostWithUserAndComments } from "./apiLoader/posts";
+import {
+  fetchPostsAndUsers,
+  fetchPostWithUserAndComments
+} from "./apiLoader/posts";
 import { fetchUsers, fetchUserWithPostAndTodo } from "./apiLoader/users";
 import { fetchTodos } from "./apiLoader/todos";
 import { newPage } from "./apiLoader/posts";
@@ -27,7 +30,7 @@ export const router = createBrowserRouter([
         path: "/",
         index: true,
         element: <Posts />,
-        loader: fetchPosts
+        loader: fetchPostsAndUsers
       },
       {
         path: "/Posts",
@@ -35,7 +38,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Posts />,
-            loader: fetchPosts
+            loader: fetchPostsAndUsers
           },
           {
             path: ":id",

@@ -8,7 +8,13 @@ export const NewPost = () => {
   return (
     <div className='container'>
       <h1 className='page-title'>New Post</h1>
-      <PostForm title='' body='' userId='' errorMessage={errorMessage} />
+      <PostForm
+        title=''
+        body=''
+        userId=''
+        users=''
+        errorMessage={errorMessage}
+      />
     </div>
   );
 };

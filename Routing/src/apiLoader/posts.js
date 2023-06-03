@@ -1,6 +1,7 @@
 import { fetchData } from "./base";
 
-export const fetchPosts = async ({ request: { signal, url } }) => {
+export const fetchPostsAndUsers = async ({ request: { signal, url } }) => {
+  const users = await fetchData(`http://127.0.0.1:3000/users`, signal);
   const searchParams = new URL(url).searchParams;
   const query = searchParams.get("query");
   const userId = searchParams.get("userId");
@@ -18,7 +19,8 @@ export const fetchPosts = async ({ request: { signal, url } }) => {
   const posts = await fetchData(apiUrl, signal);
   return {
     searchParams: { query, userId },
-    posts: posts
+    posts: posts,
+    users: users
   };
 };
 
@@ -26,6 +28,7 @@ export const fetchPostWithUserAndComments = async ({ params, request }) => {
   const postId = params.id;
   const signal = request.signal;
 
+  const users = await fetchData(`http://127.0.0.1:3000/users`, signal);
   const post = await fetchData(`http://127.0.0.1:3000/posts/${postId}`, signal);
   const userId = post.userId;
 
@@ -34,7 +37,7 @@ export const fetchPostWithUserAndComments = async ({ params, request }) => {
     fetchData(`http://127.0.0.1:3000/posts/${postId}/comments`, signal)
   ]);
 
-  return { user, post, comments };
+  return { user, post, comments, users };
 };
 
 export const newPage = async ({ request: { signal } }) => {
