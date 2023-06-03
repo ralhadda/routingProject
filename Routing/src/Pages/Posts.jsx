@@ -38,6 +38,7 @@ export const Posts = () => {
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
             <select type='search' name='userId' id='userId' ref={userIdRef}>
+              <option value=''>Any</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>
                   {user.name}
