@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import { useLoaderData, Link, Form } from "react-router-dom";
-import { useRef, useEffect } from "react";
 
 export const Posts = () => {
   const {
@@ -7,16 +7,13 @@ export const Posts = () => {
     posts,
     users
   } = useLoaderData();
-  const queryRef = useRef("");
-  const userIdRef = useRef("");
+
+  const [queryValue, setQueryValue] = useState("");
+  const [userIdValue, setUserIdValue] = useState("");
 
   useEffect(() => {
-    queryRef.current.value = query;
-    if (userId) {
-      userIdRef.current.value = userId;
-    } else {
-      userIdRef.current.value = "";
-    }
+    setQueryValue(query || "");
+    setUserIdValue(userId || "");
   }, [query, userId]);
 
   return (
@@ -33,11 +30,23 @@ export const Posts = () => {
         <div className='form-row'>
           <div className='form-group'>
             <label htmlFor='query'>Query</label>
-            <input type='search' name='query' id='query' ref={queryRef} />
+            <input
+              type='search'
+              name='query'
+              id='query'
+              value={queryValue}
+              onChange={e => setQueryValue(e.target.value)}
+            />
           </div>
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
-            <select type='search' name='userId' id='userId' ref={userIdRef}>
+            <select
+              type='search'
+              name='userId'
+              id='userId'
+              value={userIdValue}
+              onChange={e => setUserIdValue(e.target.value)}
+            >
               <option value=''>Any</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>
