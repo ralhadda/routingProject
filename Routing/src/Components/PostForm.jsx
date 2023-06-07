@@ -18,11 +18,21 @@ export const PostForm = ({ title, body, userId, users, errorMessage }) => {
           <div className='form-group'>
             <label htmlFor='userId'>Author</label>
             <select name='userId' id='userId' defaultValue={userId}>
-              {users.map(user => (
+              {/* {users.map(user => (
                 <option key={user.id} value={user.id}>
                   {user.name}
                 </option>
-              ))}
+              ))} */}
+              <option value='1'>Leanne Graham</option>
+              <option value='2'>Ervin Howell</option>
+              <option value='3'>Clementine Bauch</option>
+              <option value='4'>Patricia Lebsack</option>
+              <option value='5'>Chelsey Dietrich</option>
+              <option value='6'>Mrs. Dennis Schulist</option>
+              <option value='7'>Kurtis Weissnat</option>
+              <option value='8'>Nicholas Runolfsdottir V</option>
+              <option value='9'>Glenna Reichert</option>
+              <option value='10'>Clementina DuBuque</option>
             </select>
           </div>
         </div>
